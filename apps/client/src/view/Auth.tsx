@@ -1,5 +1,147 @@
-import React from "react";
+import { useState } from "react";
+import { Formik } from "formik";
+import { Input } from "../components/helper/Input";
+import { Button } from "../components/helper/Button";
+import { apiClient } from "../apiClient";
+import { useNavigate } from "react-router-dom";
+
+type Form = {
+  email?: string;
+  password?: string;
+  name?: string;
+};
 
 export default function Auth() {
-  return <div>Auth</div>;
+  const navigate = useNavigate();
+  const [haveAccount, setHaveAccount] = useState(false);
+
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setForm((prev) => {
+  //     return {
+  //       ...prev,
+  //       [e.target.name]: e.target.value,
+  //     };
+  //   });
+  // };
+
+  const authenticateHandler = async (
+    values: Form,
+    onSuccess: (data: any) => void,
+    onError: () => void
+  ) => {
+    try {
+      const { data } = await apiClient.post(
+        haveAccount ? "/auth/login" : "/auth/register",
+        values
+      );
+      localStorage.setItem("accessToken", data.data[0].token);
+      onSuccess(data);
+      navigate("/");
+      window.location.reload();
+    } catch (error) {
+      onError();
+    }
+  };
+
+  return (
+    <div className="flex mt-32 justify-center items-center">
+      <Formik
+        initialValues={{ email: "", password: "", name: "" }}
+        validate={(values) => {
+          const errors: Form = {};
+          if (!values.email) {
+            errors.email = "Required";
+          } else if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+          ) {
+            errors.email = "Invalid email address";
+          }
+          if (!haveAccount) {
+            if (!values.name) {
+              errors.name = "Required";
+            } else if (values.name.length < 5) {
+              errors.name = "Name should be of min 4 length";
+            }
+          }
+          if (!values.password) {
+            errors.password = "Required";
+          } else if (values.password.length < 8) {
+            errors.password = "Password should be of min 8 length";
+          }
+          return errors;
+        }}
+        onSubmit={(values, { setSubmitting }) => {
+          authenticateHandler(
+            values,
+            (data: any) => {
+              setSubmitting(false);
+            },
+            () => {
+              setSubmitting(false);
+            }
+          );
+        }}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+          /* and other goodies */
+        }) => (
+          <form
+            onSubmit={handleSubmit}
+            className="bg-[#262522] w-[90%] md:w-[70%] lg:w-[50%] px-8 py-5 rounded-md"
+          >
+            <h6 className="text-3xl text-[#739552] text-center font-bold mb-3">
+              {haveAccount ? "Login" : "Sign-up"}
+            </h6>
+            {!haveAccount && (
+              <Input
+                onChange={handleChange}
+                placeholder="name"
+                title="Full name"
+                value={values.name}
+                name="name"
+                errorText={errors.name}
+              />
+            )}
+            <Input
+              onChange={handleChange}
+              placeholder="Email"
+              title="Email address"
+              value={values.email}
+              name="email"
+              errorText={errors.email}
+            />
+            <Input
+              name="password"
+              onChange={handleChange}
+              placeholder="****"
+              title="Password"
+              value={values.password}
+              type="password"
+              errorText={errors.password}
+            />
+            <div className="flex justify-between items-center">
+              <p
+                onClick={() => setHaveAccount((prev) => !prev)}
+                className="text-[#739552] font-bold cursor-pointer"
+              >
+                {haveAccount
+                  ? "Don't have account?"
+                  : "Already have an account?"}
+              </p>
+              <Button type="submit" onClick={() => {}}>
+                {haveAccount ? "Login" : "Create"}
+              </Button>
+            </div>
+          </form>
+        )}
+      </Formik>
+    </div>
+  );
 }

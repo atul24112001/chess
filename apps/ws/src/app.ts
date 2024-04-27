@@ -2,8 +2,10 @@ import { WebSocketServer } from "ws";
 import http from "http";
 import { config } from "dotenv";
 import { GameManager } from "./brain/GameManager";
+import { Redis } from "ioredis";
 
-const gameManager = new GameManager();
+const redis = new Redis();
+const gameManager = new GameManager(redis);
 
 async function main() {
   config();

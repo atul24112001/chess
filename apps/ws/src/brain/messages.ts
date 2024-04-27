@@ -3,4 +3,5 @@ export const messages = {
   MOVE_PICE: "move_pice",
   GAME_OVER: "game_over",
   RESIGN: "resign_game",
+  TIME_OUT: "time_out",
 };

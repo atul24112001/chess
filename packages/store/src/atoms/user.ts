@@ -1,6 +1,12 @@
 import { atom, selector } from "recoil";
 
-export const BACKEND_URL = "http://localhost:8000";
+export const BACKEND_URL = "http://localhost:8000/api";
+
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+}
 
 export const userAtom = atom<User>({
   key: "user",
@@ -8,16 +14,16 @@ export const userAtom = atom<User>({
     key: "user/default",
     get: async () => {
       try {
-        const response = await fetch(`${BACKEND_URL}/auth/refresh`, {
+        const response = await fetch(`${BACKEND_URL}/auth/verify`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken") || ""}`,
           },
-          credentials: "include",
         });
         if (response.ok) {
           const data = await response.json();
-          return data;
+          return data.data[0];
         }
       } catch (e) {
         console.error(e);

@@ -10,10 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@repo/ui": "*",
     "@repo/store": "*",
+    "@repo/ui": "*",
+    "axios": "^1.6.8",
     "chess.js": "^1.0.0-beta.8",
+    "formik": "^2.4.6",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.0",
     "recoil": "^0.7.7"
@@ -22,6 +27,7 @@
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "@types/react": "^18.2.66",
+    "@types/react-beautiful-dnd": "^13.1.8",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
