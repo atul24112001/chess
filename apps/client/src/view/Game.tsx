@@ -25,7 +25,7 @@ export default function Game() {
   const socket = useSocket();
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout | undefined;
+    let timeout: any;
 
     if (gameStarted && !winner) {
       timeout = setInterval(() => {
