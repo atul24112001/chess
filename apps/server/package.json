@@ -4,7 +4,7 @@
   "description": "This is backend server for chess application",
   "main": "app.js",
   "scripts": {
-    "start": "node dist/app.js",
+    "start": "prisma generate && node dist/app.js",
     "build": "tsc",
     "dev": "nodemon --exec ts-node src/app.ts --ignore '*.test.ts'"
   },
