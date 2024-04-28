@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Chessboard, { MoveType } from "../components/Chessboard";
 import useSocket from "../hooks/useSocket";
 import { events } from "../components/helper/events";
 import { Chess, Color } from "chess.js";
 import { Button } from "../components/helper/Button";
-import { DragDropContext, DragStart, DropResult } from "react-beautiful-dnd";
 import { Each } from "../components/helper/each";
-import { useUser } from "@repo/store/useUser";
+import { useUser } from "../hooks/useUser";
+// import { useUser } from "@repo/store/useUser";
 
 export default function Game() {
   const [waitingForOpponent, setWaitingForOpponent] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [color, setColor] = useState<Color | undefined>();
-  const [chess, setChess] = useState(new Chess());
+  const [chess] = useState(new Chess());
   const [board, setBoard] = useState(chess.board());
   const [winner, setWinner] = useState<null | Color>(null);
   const moveSound = new Audio("/move.wav");
@@ -74,8 +74,10 @@ export default function Game() {
             chess.move(message.payload);
             setMovesTracker((prev) => [...prev, message.payload]);
             setBoard(chess.board());
+            break;
           case events.GAME_OVER:
             setWinner(message.payload.winner);
+            break;
           default:
             break;
         }

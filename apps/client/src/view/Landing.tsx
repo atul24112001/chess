@@ -13,14 +13,14 @@ type Game = {
 
 export default function Landing() {
   const [games, setGames] = useState<Game[]>([]);
-  const [totalGames, setTotalGames] = useState(0);
+  // const [totalGames, setTotalGames] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
       const { data } = await apiClient.get("/game");
       setGames(data.data);
-      setTotalGames(data.total);
+      // setTotalGames(data.total);
     })();
   }, []);
 

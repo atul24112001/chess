@@ -1,9 +1,7 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:8000/api";
-
 export const apiClient = axios.create({
-  baseURL,
+  baseURL: `${import.meta.env.VITE_BACKEND_URL}/api`,
   headers: {
     Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
   },

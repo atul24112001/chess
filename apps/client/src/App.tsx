@@ -5,11 +5,12 @@ import { Route, Routes } from "react-router-dom";
 import Landing from "./view/Landing";
 import Loader from "./components/helper/Loader";
 import Auth from "./view/Auth";
-import { useUser } from "@repo/store/useUser";
+// import { useUser } from "@repo/store/useUser";
 import Game from "./view/Game";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./components/helper/Button";
 import GameDetails from "./view/GameDetails";
+import { useUser } from "./hooks/useUser";
 
 const RouteComponent = () => {
   const user = useUser();
@@ -25,8 +26,6 @@ const RouteComponent = () => {
     localStorage.removeItem("accessToken");
     window.location.reload();
   };
-
-  console.log({ user });
 
   return (
     <>

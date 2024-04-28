@@ -73,7 +73,7 @@ export default function Auth() {
         onSubmit={(values, { setSubmitting }) => {
           authenticateHandler(
             values,
-            (data: any) => {
+            () => {
               setSubmitting(false);
             },
             () => {
@@ -82,16 +82,7 @@ export default function Auth() {
           );
         }}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-          /* and other goodies */
-        }) => (
+        {({ values, errors, handleChange, handleSubmit }) => (
           <form
             onSubmit={handleSubmit}
             className="bg-[#262522] w-[90%] md:w-[70%] lg:w-[50%] px-8 py-5 rounded-md"
