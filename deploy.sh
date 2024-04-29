@@ -40,15 +40,15 @@ docker rmi $IMAGE_SERVER_EXPRESS
 docker rmi $IMAGE_SERVER_WS
 docker rmi $IMAGE_CLIENT
 
-cd ~/chess/app/server
+cd ~/chess/apps/server
 docker build -t atul24112001/$IMAGE_SERVER_EXPRESS:$IMAGE_TAG .
 docker run -e DATABASE_URL=$DATABASE_URL/$DATABASE_NAME -e SECRET=$POSTGRESS_DATABASE_PASSWORD -e PORT=8000 --name $IMAGE_SERVER_EXPRESS --network $DATABASE_NETWORK  -d -p $SERVER_EXPRESS_PORT:8000 atul24112001/$IMAGE_SERVER_EXPRESS:$IMAGE_TAG
 
-cd ~/chess/app/ws 
+cd ~/chess/apps/ws 
 docker build -t atul24112001/$IMAGE_SERVER_WS:$IMAGE_TAG .
 docker run -e PORT=8000 --name $IMAGE_SERVER_WS --network $DATABASE_NETWORK  -d -p $SERVER_WS_PORT:8000 atul24112001/$IMAGE_SERVER_WS:$IMAGE_TAG
 
-cd ~/chess/app/client 
+cd ~/chess/apps/client 
 docker build -t atul24112001/$IMAGE_CLIENT:$IMAGE_TAG .
 docker run -e VITE_BACKEND_URL=$EXPRESS_SERVER_URL VITE_WS_URL=$WS_SERVE_URL --name $IMAGE_CLIENT --network $DATABASE_NETWORK  -d -p $CLIENT_PORT:3000 atul24112001/$IMAGE_CLIENT:$IMAGE_TAG
 
