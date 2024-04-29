@@ -3,6 +3,7 @@ import { Button } from "../components/helper/Button";
 import { useEffect, useState } from "react";
 import { apiClient } from "../apiClient";
 import { Each } from "../components/helper/each";
+import { useUser } from "../hooks/useUser";
 
 type Game = {
   id: string;
@@ -13,16 +14,18 @@ type Game = {
 
 export default function Landing() {
   const [games, setGames] = useState<Game[]>([]);
+  const user = useUser();
   // const [totalGames, setTotalGames] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
-    (async () => {
-      const { data } = await apiClient.get("/game");
-      setGames(data.data);
-      // setTotalGames(data.total);
-    })();
-  }, []);
+    if (user) {
+      (async () => {
+        const { data } = await apiClient.get("/game");
+        setGames(data.data);
+      })();
+    }
+  }, [user]);
 
   const handlePlayOnline = () => {
     navigate("/game/random");

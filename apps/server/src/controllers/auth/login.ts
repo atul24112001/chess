@@ -1,4 +1,4 @@
-import {  Response } from "express";
+import { Response } from "express";
 import {
   generateToken,
   sendError,
@@ -44,6 +44,7 @@ export async function login(req: ExpressRequest, res: Response) {
 
     return sendResponse(res, [{ token }], "Login successful!");
   } catch (error) {
+    console.log(error);
     sendError(res);
   }
 }
