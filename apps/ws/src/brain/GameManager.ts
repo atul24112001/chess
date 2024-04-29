@@ -93,7 +93,7 @@ export class GameManager {
     socket.on("message", (data) => {
       const message = JSON.parse(data.toString());
       console.log(message.payload);
-      const game = this.games[message.payload.id];
+      const game = this.games[message.payload?.id || ""];
 
       switch (message.type) {
         case messages.INIT_GAME:
