@@ -1,6 +1,6 @@
 import { atom, selector } from "recoil";
 
-export const BACKEND_URL = `${import.meta.env.VITE_BACKEND_URL}/api`;
+export const BACKEND_URL = `http://chess.atulmorchhlay.com/api`;
 
 export interface User {
   id: string;
