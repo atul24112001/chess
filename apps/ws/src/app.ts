@@ -4,17 +4,18 @@ import { config } from "dotenv";
 import { GameManager } from "./brain/GameManager";
 import { Redis } from "ioredis";
 
-const redis = new Redis({
-  host: "127.0.0.1",
-  port: 6379,
-  password: process.env.REDIS_PASSWORD,
-});
-const gameManager = new GameManager(redis);
-
 async function main() {
   config();
 
   const PORT = process.env.PORT || 3000; // Default to port 3000 if PORT is not defined in .env
+  const redis = new Redis({
+    host: "164.68.103.23",
+    port: 6379,
+    password: process.env.REDIS_PASSWORD,
+  });
+  const data = await redis.get("PING");
+  console.log({ data });
+  const gameManager = new GameManager(redis);
   const server = http.createServer();
   const wss = new WebSocketServer({ server });
 
@@ -29,6 +30,4 @@ async function main() {
   });
 }
 
-main().catch((error) => {
-  console.error("An error occurred:", error);
-});
+main();

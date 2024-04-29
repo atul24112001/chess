@@ -2,7 +2,11 @@ import { Redis } from "ioredis";
 import { prisma } from "./utils/database";
 
 export const initRedis = (callback: () => void) => {
-  const redis = new Redis();
+  const redis = new Redis({
+    host: "164.68.103.23",
+    port: 6379,
+    password: process.env.REDIS_PASSWORD,
+  });
   const channels = ["create_game", "winner", "move", "draw"];
   for (let channel of channels) {
     redis.subscribe(channel, (err, count) => {
