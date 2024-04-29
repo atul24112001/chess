@@ -1,7 +1,8 @@
 import axios from "axios";
+import { BACKEND_URL } from "./store/atoms/user";
 
 export const apiClient = axios.create({
-  baseURL: `${import.meta.env.VITE_BACKEND_URL}/api`,
+  baseURL: `${BACKEND_URL}`,
   headers: {
     Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
   },

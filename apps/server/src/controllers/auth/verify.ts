@@ -13,6 +13,7 @@ export async function verify(req: ExpressRequest, res: Response) {
     }
     sendError(res, "Access denied!", 401);
   } catch (error) {
+    console.log(error);
     sendError(res);
   }
 }

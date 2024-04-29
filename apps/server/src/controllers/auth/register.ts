@@ -45,6 +45,7 @@ export async function register(req: ExpressRequest, res: Response) {
 
     return sendResponse(res, [{ token }], "Registration successful!");
   } catch (error) {
+    console.log(error);
     sendError(res);
   }
 }

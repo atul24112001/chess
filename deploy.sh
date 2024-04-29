@@ -2,8 +2,8 @@
 export PATH=$PATH:/root/.nvm/versions/node/v20.9.0/bin
 
 POSTGRESS_DATABASE_PASSWORD="$1"
-EXPRESS_SERVER_URL=https://api-chess.atulmorchhlay.com
-WS_SERVE_URL=ws://ws-chess.atulmorchhlay.com
+EXPRESS_SERVER_URL="https://chess.atulmorchhlay.com"
+WS_SERVE_URL="ws://chess.atulmorchhlay.com/ws"
 IMAGE_SERVER_EXPRESS="chess-server-express"
 IMAGE_SERVER_WS="chess-server-ws"
 IMAGE_CLIENT="chess-client"
@@ -50,7 +50,7 @@ docker run -e PORT=8000 --name $IMAGE_SERVER_WS --network $DATABASE_NETWORK  -d 
 
 cd ~/chess/app/client 
 docker build -t atul24112001/$IMAGE_CLIENT:$IMAGE_TAG .
-docker run -e VITE_BACKEND_URL=$EXPRESS_SERVER_URL VITE_WS_URL=$WS_SERVE_URL --name $IMAGE_CLIENT --network $DATABASE_NETWORK  -d -p $CLIENT_PORT:3000 atul24112001/$IMAGE_SERVER_WS:$IMAGE_TAG
+docker run -e VITE_BACKEND_URL=$EXPRESS_SERVER_URL VITE_WS_URL=$WS_SERVE_URL --name $IMAGE_CLIENT --network $DATABASE_NETWORK  -d -p $CLIENT_PORT:3000 atul24112001/$IMAGE_CLIENT:$IMAGE_TAG
 
 
 

@@ -34,6 +34,7 @@ export const checkAuth = async (
 
     next();
   } catch (error) {
+    console.log(error);
     sendError(res);
   }
 };

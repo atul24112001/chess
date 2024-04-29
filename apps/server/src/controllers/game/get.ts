@@ -54,6 +54,7 @@ export async function getGames(req: ExpressRequest, res: Response) {
 
     sendResponse(res, games, "Success", 200, totalGames);
   } catch (error) {
+    console.log(error);
     sendError(res);
   }
 }

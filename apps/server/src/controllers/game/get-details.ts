@@ -35,6 +35,7 @@ export async function getGameDetails(req: ExpressRequest, res: Response) {
 
     sendResponse(res, moves);
   } catch (error) {
+    console.log(error);
     sendError(res);
   }
 }
