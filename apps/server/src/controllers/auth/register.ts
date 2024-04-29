@@ -8,6 +8,7 @@ import {
 import { prisma } from "../../utils/database";
 import { authBody } from ".";
 import { ExpressRequest } from "../../../types";
+import crypto from "crypto";
 
 export async function register(req: ExpressRequest, res: Response) {
   try {

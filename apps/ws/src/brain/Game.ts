@@ -3,6 +3,7 @@ import { WebSocket } from "ws";
 import { messages } from "./messages";
 import { Redis } from "ioredis";
 import { Player } from "./GameManager";
+import crypto from "crypto";
 
 export class Game {
   public id: string;
