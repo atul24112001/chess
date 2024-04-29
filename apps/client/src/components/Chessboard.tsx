@@ -162,7 +162,7 @@ export default function Chessboard({
                               </div>
                             )}
                             {isValidMove && (
-                              <div className="absolute w-16 h-16 md:w-20 md:h-20 flex justify-center items-center">
+                              <div className="absolute w-10 h-10  sm:w-16 sm:h-16 md:w-20 md:h-20 flex justify-center items-center">
                                 <div
                                   className={`w-[10px] z-10 h-[10px] rounded-full opacity-30  ${box ? "bg-red-400" : "bg-gray-700"}`}
                                 ></div>
