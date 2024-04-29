@@ -36,9 +36,9 @@ docker rm $IMAGE_SERVER_EXPRESS
 docker rm $IMAGE_SERVER_WS
 docker rm $IMAGE_CLIENT
 
-docker rmi $IMAGE_SERVER_EXPRESS
-docker rmi $IMAGE_SERVER_WS
-docker rmi $IMAGE_CLIENT
+docker rmi atul24112001/$IMAGE_SERVER_EXPRESS
+docker rmi atul24112001/$IMAGE_SERVER_WS
+docker rmi atul24112001/$IMAGE_CLIENT
 
 cd ~/chess/apps/server
 docker build -t atul24112001/$IMAGE_SERVER_EXPRESS:$IMAGE_TAG .
