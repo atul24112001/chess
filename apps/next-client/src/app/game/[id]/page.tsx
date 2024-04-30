@@ -1,4 +1,5 @@
 import GameDetailsComponent from "@/view/GameDetails";
+import axios from "axios";
 import { cookies } from "next/headers";
 import React from "react";
 
@@ -13,15 +14,14 @@ export default async function GameDetails({
   const accessToken = cookieStore.get("accessToken")?.value;
 
   if (accessToken && params.id) {
-    moves = await fetch(`${process.env.FRONTEND_URL}/api/game/${params.id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken || ""}`,
-      },
-    })
-      .then((resp: any) => resp.json())
-      .then((data: any) => data?.data)
+    moves = await axios
+      .get(`${process.env.FRONTEND_URL}/api/game/${params.id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken || ""}`,
+        },
+      })
+      .then(({ data }) => data?.data)
       .catch((err: any) => console.log(err));
   }
 

@@ -21,15 +21,6 @@ export default function Auth() {
   const [haveAccount, setHaveAccount] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setForm((prev) => {
-  //     return {
-  //       ...prev,
-  //       [e.target.name]: e.target.value,
-  //     };
-  //   });
-  // };
-
   const authenticateHandler = async (
     values: Form,
     onSuccess: (data: any) => void,
@@ -43,9 +34,9 @@ export default function Auth() {
       );
       localStorage.setItem("accessToken", data.data[0].token);
       Cookie.set("accessToken", data.data[0].token);
-      onSuccess(data);
       router.push("/");
       router.refresh();
+      onSuccess(data);
     } catch (error) {
       onError();
     }
@@ -95,7 +86,7 @@ export default function Auth() {
           );
         }}
       >
-        {({ values, errors, handleChange, handleSubmit }) => (
+        {({ values, errors, handleChange, handleSubmit, isSubmitting }) => (
           <form
             onSubmit={handleSubmit}
             className="bg-[#262522] w-[90%] md:w-[70%] lg:w-[50%] px-8 py-5 rounded-md"
@@ -139,7 +130,7 @@ export default function Auth() {
                   ? "Don't have account?"
                   : "Already have an account?"}
               </p>
-              <Button type="submit" onClick={() => {}}>
+              <Button disabled={isSubmitting} type="submit" onClick={() => {}}>
                 {haveAccount ? "Login" : "Create"}
               </Button>
             </div>

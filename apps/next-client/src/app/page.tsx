@@ -1,4 +1,5 @@
 import Landing from "@/view/Landing";
+import axios from "axios";
 import { cookies } from "next/headers";
 
 export default async function Home() {
@@ -8,19 +9,14 @@ export default async function Home() {
   const accessToken = cookieStore.get("accessToken")?.value;
 
   if (accessToken) {
-    games = await fetch(`${process.env.FRONTEND_URL}/api/game`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken || ""}`,
-      },
-    })
-      .then((resp: any) => {
-        if (resp.status == 200) {
-          return resp.json();
-        }
+    games = await axios
+      .get(`${process.env.FRONTEND_URL}/api/game`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken || ""}`,
+        },
       })
-      .then((data: any) => data?.data)
+      .then(({ data }) => data?.data)
       .catch((err: any) => console.log(err));
   }
 

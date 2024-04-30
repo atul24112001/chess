@@ -24,19 +24,19 @@ export default async function RootLayout({
   let user: any;
 
   if (accessToken) {
-    user = await fetch(`${process.env.FRONTEND_URL}/api/auth/verify`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken || ""}`,
-      },
-    })
-      .then((resp: any) => {
-        if (resp.status == 200) {
-          return resp.json();
-        }
+    console.log(accessToken);
+    // user = await fetch(, {
+    //   method: "GET",
+    //   headers: ,
+    // })
+    user = await axios
+      .get(`${process.env.FRONTEND_URL}/api/auth/verify`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken || ""}`,
+        },
       })
-      .then((data: any) => data?.data?.[0])
+      .then(({ data }) => data?.data?.[0])
       .catch((err: any) => console.log(err));
   }
 

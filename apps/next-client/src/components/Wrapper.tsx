@@ -1,12 +1,13 @@
 "use client";
 
-import React, { PropsWithChildren, useEffect } from "react";
+import React, { PropsWithChildren, useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/helper/Button";
 import { User, userAtom } from "@/store/atoms/user";
 import Cookie from "js-cookie";
+import Loader from "./helper/Loader";
 
 type Props = {
   user?: User;
@@ -17,6 +18,8 @@ const Wrapper = ({ children, user }: PropsWithChildren<Props>) => {
   const path = usePathname();
   const setUser = useSetRecoilState(userAtom);
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (user) {
       setUser(user);
@@ -25,6 +28,7 @@ const Wrapper = ({ children, user }: PropsWithChildren<Props>) => {
         router.replace("/authentication");
       }
     }
+    setLoading(false);
   }, [user]);
 
   const logoutHandler = () => {
@@ -32,6 +36,10 @@ const Wrapper = ({ children, user }: PropsWithChildren<Props>) => {
     Cookie.remove("accessToken");
     router.refresh();
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="min-h-screen  text-white bg-[#302e2b]">
