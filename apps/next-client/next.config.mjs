@@ -24,9 +24,10 @@ const nextConfig = {
             }
         ];
     },
-    // env: {
-    //     BASE_API_URL: process.env.BASE_URL || "http://localhost:8000"
-    // }
+    env: {
+        BASE_URL: process.env.BASE_URL,
+        FRONTEND_URL: process.env.FRONTEND_URL,
+    }
 };
 
 export default nextConfig;
