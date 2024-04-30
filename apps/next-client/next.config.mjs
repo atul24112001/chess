@@ -1,26 +1,27 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     async rewrites() {
+        const baseUrl = "https://chess.atulmorchhlay.com";
         return [
             {
                 source: "/api/auth/verify",
-                destination: `${process.env.BASE_URL}/api/auth/verify`,
+                destination: `${baseUrl}/api/auth/verify`,
             },
             {
                 source: "/api/auth/login",
-                destination: `${process.env.BASE_URL}/api/auth/login`,
+                destination: `${baseUrl}/api/auth/login`,
             },
             {
                 source: "/api/auth/register",
-                destination: `${process.env.BASE_URL}/api/auth/register`,
+                destination: `${baseUrl}/api/auth/register`,
             },
             {
                 source: "/api/game",
-                destination: `${process.env.BASE_URL}/api/game`,
+                destination: `${baseUrl}/api/game`,
             },
             {
                 source: "/api/game/:id*",
-                destination: `${process.env.BASE_URL}/api/game/:id*`,
+                destination: `${baseUrl}/api/game/:id*`,
             }
         ];
     },
