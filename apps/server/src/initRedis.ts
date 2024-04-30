@@ -37,6 +37,7 @@ export const initRedis = (callback: () => void) => {
         break;
     }
   });
+  callback();
 };
 
 async function createGameHandler(data: any) {

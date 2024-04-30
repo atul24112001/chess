@@ -48,7 +48,7 @@ cd ~/chess/apps/ws
 docker build -t atul24112001/$IMAGE_SERVER_WS:$IMAGE_TAG .
 docker run -e PORT=8000 -e REDIS_PASSWORD=$POSTGRESS_DATABASE_PASSWORD --name $IMAGE_SERVER_WS --network $DATABASE_NETWORK  -d -p $SERVER_WS_PORT:8000 atul24112001/$IMAGE_SERVER_WS:$IMAGE_TAG
 
-cd ~/chess/apps/client 
+cd ~/chess/apps/next-client
 docker build -t atul24112001/$IMAGE_CLIENT:$IMAGE_TAG .
 docker run -e VITE_BACKEND_URL=$EXPRESS_SERVER_URL -e VITE_WS_URL=$WS_SERVE_URL --name $IMAGE_CLIENT --network $DATABASE_NETWORK  -d -p $CLIENT_PORT:3000 atul24112001/$IMAGE_CLIENT:$IMAGE_TAG
 
